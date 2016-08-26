@@ -60,7 +60,7 @@ const RESPONSE = {
   }]
 };
 
-describe('AppNexusAdapter', () => {
+describe.skip('AppNexusAdapter', () => {
 
   let adapter;
 

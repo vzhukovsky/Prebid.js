@@ -73,6 +73,15 @@ gulp.task('webpack', function () {
     .pipe(connect.reload());
 });
 
+gulp.task('worker', () => {
+  const workerWebpackConfig = webpackConfig;
+  workerWebpackConfig.output.filename = 'worker.js';
+
+  return gulp.src('src/adapters/worker.js')
+    .pipe(webpack(webpackConfig))
+    .pipe(gulp.dest('build/dev'));
+});
+
 //zip up for release
 gulp.task('zip', ['jscs', 'clean', 'webpack'], function () {
   return gulp.src(['build/dist/*', 'integrationExamples/gpt/*'])
