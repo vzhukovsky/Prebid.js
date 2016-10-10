@@ -1,4 +1,4 @@
-import {formatQS} from './url';
+import {formatQS, parse} from './url';
 
 //Adserver parent class
 const AdServer = function(attr) {
@@ -28,9 +28,18 @@ exports.dfpAdserver = function (options, urlComponents) {
     return encodeURIComponent(formatQS(targeting));
   };
 
+  /*
+   * Remove the domain and `ro` portion of the url so that `description_url`
+   * conforms with the expected creative format.
+   */
+  const setDescription = function(url) {
+    let queryString = parse(url).search;
+    return encodeURIComponent(formatQS(queryString));
+  };
+
   adserver.appendQueryParams = function() {
     var bid = adserver.getWinningBidByCode();
-    this.urlComponents.search.description_url = encodeURIComponent(bid.vastUrl);
+    this.urlComponents.search.description_url = setDescription(bid.vastUrl);
     this.urlComponents.search.cust_params = getCustomParams(bid.adserverTargeting);
     this.urlComponents.correlator = Date.now();
   };
