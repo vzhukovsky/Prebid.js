@@ -536,6 +536,7 @@ export function getHighestCpm(previous, current) {
   if (previous.cpm === current.cpm) {
     return previous.timeToRespond > current.timeToRespond ? current : previous;
   }
+
   return previous.cpm < current.cpm ? current : previous;
 }
 
@@ -560,4 +561,8 @@ export function shuffle(array) {
   }
 
   return array;
+}
+
+export function adUnitsFilter(filter, bid) {
+  return filter.includes(bid && bid.placementCode || bid && bid.adUnitCode);
 }
