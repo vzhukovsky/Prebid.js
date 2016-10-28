@@ -7,12 +7,12 @@ var events = require('./events');
 
 var objectType_function = 'function';
 
-var externalCallbacks = { byAdUnit: [], all: [], oneTime: null, timer: false };
+var externalCallbacks = {byAdUnit: [], all: [], oneTime: null, timer: false};
 var _granularity = CONSTANTS.GRANULARITY_OPTIONS.MEDIUM;
 let _customPriceBucket;
 var defaultBidderSettingsMap = {};
 
-exports.setCustomPriceBucket = function (customConfig) {
+exports.setCustomPriceBucket = function(customConfig) {
   _customPriceBucket = customConfig;
 };
 
@@ -30,9 +30,7 @@ exports.getTimedOutBidders = function () {
       .indexOf(bidder) < 0);
 };
 
-function timestamp() {
-  return new Date().getTime();
-}
+function timestamp() { return new Date().getTime(); }
 
 function getBidderCode(bidSet) {
   return bidSet.bidderCode;
@@ -175,9 +173,9 @@ function getKeyValueTargetingPairs(bidderCode, custBidObj) {
   }
 
   function filterIfSendStandardTargeting(bidderSettings) {
-    if (typeof bidderSettings.sendStandardTargeting !== 'undefined' && bidderSettings.sendStandardTargeting === false) {
-      for (var key in keyValues) {
-        if (CONSTANTS.TARGETING_KEYS.indexOf(key) !== -1) {
+    if (typeof bidderSettings.sendStandardTargeting !== "undefined" && bidderSettings.sendStandardTargeting === false) {
+      for(var key in keyValues) {
+        if(CONSTANTS.TARGETING_KEYS.indexOf(key) !== -1) {
           delete keyValues[key];
         }
       }
@@ -187,7 +185,7 @@ function getKeyValueTargetingPairs(bidderCode, custBidObj) {
   return keyValues;
 }
 
-exports.getKeyValueTargetingPairs = function () {
+exports.getKeyValueTargetingPairs = function() {
   return getKeyValueTargetingPairs(...arguments);
 };
 
@@ -212,7 +210,7 @@ function setKeys(keyValues, bidderSettings, custBidObj) {
     }
 
     if (
-      typeof bidderSettings.suppressEmptyKeys !== 'undefined' && bidderSettings.suppressEmptyKeys === true &&
+      typeof bidderSettings.suppressEmptyKeys !== "undefined" && bidderSettings.suppressEmptyKeys === true &&
       (
         utils.isEmptyStr(value) ||
         value === null ||
@@ -231,8 +229,7 @@ function setKeys(keyValues, bidderSettings, custBidObj) {
 
 exports.setPriceGranularity = function setPriceGranularity(granularity) {
   var granularityOptions = CONSTANTS.GRANULARITY_OPTIONS;
-  if (Object.keys(granularityOptions)
-      .filter(option => granularity === granularityOptions[option])) {
+  if (Object.keys(granularityOptions).filter(option => granularity === granularityOptions[option])) {
     _granularity = granularity;
   } else {
     utils.logWarn('Prebid Warning: setPriceGranularity was called with invalid setting, using' +
@@ -373,7 +370,7 @@ function adjustBids(bid) {
   }
 }
 
-exports.adjustBids = function () {
+exports.adjustBids = function() {
   return adjustBids(...arguments);
 };
 
@@ -418,7 +415,6 @@ function getStandardBidderSettings() {
       ]
     };
   }
-
   return bidder_settings[CONSTANTS.JSON_MAPPING.BD_SETTING_STANDARD];
 }
 
